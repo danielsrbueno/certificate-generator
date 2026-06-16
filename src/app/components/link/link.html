@@ -1,0 +1,11 @@
+<div class="flex items-center gap-1 cursor-pointer text-gray-500 transition-all hover:text-gray-950 active:text-blue-700" (click)="goToPage()">
+  @if (phClass) {
+    <i [class]="phClass + ' ph font-semibold text-base'"></i>
+  }
+  @if (!phClass) {
+    <span class="px-8 font-medium">{{buttonText}}</span>
+  }
+  @else {
+    <span class="font-medium">{{buttonText}}</span>
+  }
+</div>
