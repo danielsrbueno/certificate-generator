@@ -1,0 +1,30 @@
+<section class="flex flex-col gap-10">
+  <div class="w-full flex items-center justify-between">
+    <app-link routerLink="/" phClass="ph-arrow-left" buttonText="Voltar" href="go back!"></app-link>
+    <app-secondary-button buttonText="Download" phClass="ph-download-simple" (click)="this.downloadCetificate()"></app-secondary-button>
+  </div>
+  <div #certificateContainer class="certificate relative rounded-2xl p-12 bg-center bg-cover">
+    <img class="absolute top-3 left-3 " src="certificate/rebbon-certificate.png" alt="Assinatura">
+    <div class="flex flex-col items-center gap-12 text-center px-56 py-16 bg-gray-50 rounded-lg">
+      <div class="flex flex-col gap-4">
+        <h1 class="text-4xl font-extrabold tracking-wide text-blue-950">CERTIFICADO DE CONCLUSÃO</h1>
+        <p class="text-lg">Este certificado comprova que</p>
+      </div>
+      <div class="flex flex-col gap-4">
+        <h1 class="text-7xl text-blue-800 font-bold font-cursive tracking-tight">{{this.certificate?.studentName}}</h1>
+      </div>
+      <div class="flex flex-col gap-4">
+        <p>Concluiu com sucesso as seguintes atividades:</p>
+        <p class="text-lg px-8">
+          @for(activity of this.certificate?.activities; track $index) {
+            <span>
+              {{activity}}{{this.getSuffix($index)}}
+            </span>
+          }
+        </p>
+      </div>
+      <p class="font-bold">Emitido em {{this.certificate?.createdAt}}</p>
+    </div>
+    <img class="w-24 absolute bottom-20 right-28" src="certificate/signature-certificate.svg" alt="Assinatura">
+  </div>
+</section>
