@@ -1,0 +1,56 @@
+<div class="text-center">
+  <h1 class="font-bold text-3xl mb-2">Geração de certificado</h1>
+  <p class="text-gray-500 mb-10">Preencha os dados para gerar um novo certificado</p>
+</div>
+ <form #form="ngForm" novalidate class="flex flex-col gap-6 p-10 mb-2 border border-gray-200 rounded-lg">
+  <h1 class="text-xl font-semibold text-blue-950">Novo certificado</h1>
+  <div class="w-full text-blue-950 group">
+    <label class="group-focus-within:text-blue-700 group-has-[.error]:text-red-500" for="input-name">Nome completo</label>
+    <input
+      id="input-name"
+      name="studentName"
+      #nameRef="ngModel"
+      [(ngModel)]="certificate.studentName"
+      class="w-full h-11 p-3 border border-gray-200 rounded-sm outline-0 focus:border-blue-700 group-has-[.error]:border-red-500"
+      type="text" placeholder="Digite o nome completo do aluno"
+      required
+      maxlength="60"
+      minlength="3"
+    >
+    @if (validField(nameRef)) {
+      <span class="error text-sm text-red-400 flex items-center gap-1 absolute select-none"><i class="ph ph-warning-circle"></i>O nome do aluno é obrigatório</span>
+    }
+  </div>
+  <div class="w-full text-blue-950 group">
+    <label class="group-focus-within:text-blue-700 group-has-[.error]:text-red-500" for="input-activity">Atividade</label>
+    <span class="flex gap-3 items-center">
+      <input
+        id="input-activity"
+        name="certificateActivity"
+        #activityRef="ngModel"
+        [(ngModel)]="certificateActivity"
+        class="w-full h-11 p-3 border border-gray-200 rounded-sm outline-0 focus:border-blue-700 group-has-[.error]:border-red-500"
+        type="text"
+        placeholder="Digite o título da atividade"
+        maxlength="50"
+        required
+      >
+      <app-secondary-button phClass="ph-plus" buttonText="Adicionar" (click)="addToActivities()" [disabled]="!certificateActivity || certificateActivity.length === 0"></app-secondary-button>
+    </span>
+  </div>
+  <label class="-mb-6 text-blue-950" for="input-activity">Lista de atividades</label>
+  <div class="w-full flex flex-col px-4 rounded-xl border border-gray-200">
+    @for (activity of certificate.activities; track $index) {
+      <div class="flex items-center justify-between py-3">
+        <span>{{activity}}</span>
+        <i class="ph ph-x text-red-400 text-xl p-0.5 cursor-pointer rounded hover:bg-gray-200 hover:text-red-500 transition-all" (click)="removeFromActivities($index)"></i>
+      </div>
+      @if ($index + 1 != certificate.activities.length) {
+        <hr class="border-gray-300">
+      }
+    }
+  </div>
+  <div class="w-full">
+    <app-primary-button buttonText="Gerar certificado" [disabled]="!validToCreate()" (click)="submit()"></app-primary-button>
+  </div>
+</form>
