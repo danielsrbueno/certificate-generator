@@ -1,0 +1,11 @@
+<button class="max-h-12 gap-2.5 p-2.5 flex items-center text-gray-50 bg-blue-950 rounded-lg cursor-pointer hover:opacity-90 disabled:opacity-50" [disabled]="disabled">
+  @if (phClass) {
+    <i [class]="phClass + ' ph font-semibold text-base'"></i>
+  }
+  @if (!phClass) {
+    <span class="px-8 font-medium">{{buttonText}}</span>
+  }
+  @else {
+    <span class="text-sm font-medium">{{buttonText}}</span>
+  }
+</button>
